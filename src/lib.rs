@@ -1,14 +1,21 @@
 #![allow(clippy::future_not_send)]
 
+#[macro_use]
+extern crate rust_i18n;
+
 pub use slash::get_commands;
 
 #[macro_use]
 mod status_code;
+#[macro_use]
+mod translation;
 
 mod handler;
 mod interaction;
 mod slash;
 mod validate;
+
+mod new_campaign;
 
 use worker::{Context, Env, Request, Response, Result, event};
 
@@ -16,6 +23,8 @@ use crate::{
     handler::get_handler,
     interaction::{get_interaction, interaction_id, interaction_is_ping},
 };
+
+i18n!("translations", fallback = "en");
 
 ///  This is where the Cloudflare Worker starts working on a Discord interaction for the FATE app and sends a reply.
 ///
