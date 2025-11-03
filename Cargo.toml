@@ -1,0 +1,29 @@
+[package]
+name = "fate"
+version = "0.1.0"
+edition = "2024"
+authors = ["fateco <236334524+fateco@users.noreply.github.com>"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+fate-internal-macro = { path = "./fate-internal-macro" }
+worker = "0.6"
+twilight-model = "0.16"
+twilight-util = { version = "0.16", features = ["builder"] }
+inventory = "0.3"
+rust-i18n = "3.1.5"
+ed25519-dalek = "2"
+hex = "0.4"
+thiserror = "2"
+serde_json = "1"
+futures = "0.3"
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
+
+[workspace]
+members = ["fate-internal-macro", "fate-set-commands"]
