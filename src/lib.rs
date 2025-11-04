@@ -15,7 +15,7 @@ mod interaction;
 mod slash;
 mod validate;
 
-mod new_campaign;
+mod campaign_new;
 
 use worker::{Context, Env, Request, Response, Result, event};
 

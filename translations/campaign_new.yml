@@ -1,0 +1,5 @@
+_version: 2
+campaign_new.command:
+  en: campaign-new
+campaign_new.description:
+  en: placeholder
