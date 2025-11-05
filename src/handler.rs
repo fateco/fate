@@ -6,8 +6,8 @@ use crate::interaction::InteractionId;
 
 #[derive(Debug)]
 pub struct HandlerIds {
-    command: Option<&'static str>,
-    common: &'static str,
+    pub command: Option<&'static str>,
+    pub common: &'static str,
 }
 
 #[derive(Debug)]
@@ -32,21 +32,3 @@ impl PartialEq<InteractionId<'_>> for HandlerIds {
         }
     }
 }
-
-// #[proc_macro::handler("test")]
-// async fn a(b: Interaction, c: Env) -> Result<Response> {
-//     todo!()
-// }
-
-//const A: &str = concat!(module_path!(), "::", stringify!(a));
-
-// inventory::submit! {
-//     crate::handler::Handler(crate::handler::HandlerIds { command: , common: A }, |interaction, env| {
-//         Box::pin(a(interaction, env))
-//     })
-// }
-
-// #[test]
-// fn test() {
-//     print!("{:?}", get_handler(&InteractionId::Comand("test")));
-// }

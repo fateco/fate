@@ -8,15 +8,21 @@ pub fn handler(attr: TokenStream, item: TokenStream) -> TokenStream {
     let func_name = &func.sig.ident;
     let func_name_const = format_ident!("{}", func_name.to_string().to_uppercase());
 
-    let command_val = if attr.is_empty() {
-        quote! {None}
+    let (command_val, command_const) = if attr.is_empty() {
+        (quote! {None}, None)
     } else {
         let command_name = parse_macro_input!(attr as LitStr).value();
-        quote! {Some(#command_name)}
+        let func_name_command_const =
+            format_ident!("{}_COMMAND", func_name.to_string().to_uppercase());
+        (
+            quote! {Some(#command_name)},
+            Some(quote! {pub const #func_name_command_const: &str = #command_name;}),
+        )
     };
 
     TokenStream::from(quote! {
-      const #func_name_const: &str = concat!(module_path!(), "::", stringify!(#func_name));
+      #command_const
+      pub const #func_name_const: &str = concat!(module_path!(), "::", stringify!(#func_name));
 
       #func
 
