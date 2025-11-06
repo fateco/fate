@@ -1,5 +1,13 @@
+use rand::RngCore;
 use std::borrow::Cow;
 use unicode_segmentation::UnicodeSegmentation;
+
+pub fn all_t(key: &str) -> Vec<(&str, Cow<'_, str>)> {
+    available_locales!()
+        .iter()
+        .map(|&locale| (locale, t!(key, locale = locale)))
+        .collect()
+}
 
 pub trait Truncate {
     fn c(&self, length: usize) -> Cow<'_, str>;
@@ -13,11 +21,17 @@ impl Truncate for Cow<'_, str> {
     }
 
     fn d(&self, length: usize) -> Cow<'_, str> {
-        let text: Cow<'_, str> = self.graphemes(false).take(length).collect();
-        if text.contains('.') {
-            text.replace('.', "-").into()
+        if self.is_empty() {
+            let mut err = format!("missing_str_{}", rand::rng().next_u32());
+            err.truncate(length);
+            err.into()
         } else {
-            text
+            let text: Cow<'_, str> = self.graphemes(false).take(length).collect();
+            if text.contains('.') {
+                text.replace('.', "-").into()
+            } else {
+                text
+            }
         }
     }
 
