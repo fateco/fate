@@ -11,7 +11,7 @@ pub fn all_t(key: &str) -> Vec<(&str, Cow<'_, str>)> {
 
 pub trait Truncate {
     fn c(&self, length: usize) -> Cow<'_, str>;
-    fn d(&self, length: usize) -> Cow<'_, str>;
+    fn cut_n_fill(&self, length: usize) -> Cow<'_, str>;
     fn e(&self) -> Cow<'_, str>;
 }
 
@@ -20,18 +20,14 @@ impl Truncate for Cow<'_, str> {
         self.graphemes(false).take(length).collect()
     }
 
-    fn d(&self, length: usize) -> Cow<'_, str> {
+    fn cut_n_fill(&self, length: usize) -> Cow<'_, str> {
         if self.is_empty() {
             let mut err = format!("missing_str_{}", rand::rng().next_u32());
             err.truncate(length);
             err.into()
         } else {
             let text: Cow<'_, str> = self.graphemes(false).take(length).collect();
-            if text.contains('.') {
-                text.replace('.', "-").into()
-            } else {
-                text
-            }
+            text.to_lowercase().replace('.', "-").into()
         }
     }
 
