@@ -5,6 +5,9 @@ use twilight_http::Client;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    rustls::crypto::aws_lc_rs::default_provider()
+        .install_default()
+        .unwrap();
     let client = Client::new(
         env::args()
             .nth(1)
