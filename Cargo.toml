@@ -10,8 +10,8 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 fate-internal-macro = { path = "./fate-internal-macro" }
 worker = "0.6"
-twilight-model = "0.16"
-twilight-util = { version = "0.16", features = ["builder"] }
+twilight-model = "0.17"
+twilight-util = { version = "0.17", features = ["builder"] }
 inventory = "0.3"
 rand = "0.9"
 rust-i18n = "3"

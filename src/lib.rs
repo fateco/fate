@@ -24,7 +24,7 @@ use crate::{
     interaction::{get_interaction, interaction_id, interaction_is_ping},
 };
 
-i18n!("translations", fallback = "en");
+i18n!("translations", fallback = "en-US");
 
 ///  This is where the Cloudflare Worker starts working on a Discord interaction for the FATE app and sends a reply.
 ///

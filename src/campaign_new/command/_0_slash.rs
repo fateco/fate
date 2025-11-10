@@ -8,7 +8,7 @@ use crate::{
         handler::CAMPAIGN_NEW_COMMAND,
     },
     slash::CommandLocalize,
-    translation::all_t,
+    translation::{Truncate, all_t},
 };
 use fate_internal_macro::app_command;
 
@@ -16,8 +16,9 @@ use fate_internal_macro::app_command;
 pub fn campaign_new_slash() -> Result<Command> {
     Ok(CommandBuilder::init_localize(
         CAMPAIGN_NEW_COMMAND,
-        all_t("campaign_new.name", 32),
-        all_t("campaign_new.name_description", 100),
+        t!("campaign_new.description").c(100),
+        all_t("campaign_new.command", 32),
+        all_t("campaign_new.description", 100),
     )
     .option(name())
     .option(lang())

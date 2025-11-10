@@ -1,3 +1,21 @@
 _version: 2
 campaign_new.command:
   en-US: campaign-new
+campaign_new.description:
+  en-US: ...
+campaign_new.name:
+  en-US: name
+campaign_new.name_description:
+  en-US: ...
+campaign_new.language:
+  en-US: language
+campaign_new.language_description:
+  en-US: ...
+campaign_new.set_skills:
+  en-US: skill
+campaign_new.set_skills_description:
+  en-US: ...
+campaign_new.set_skills_default:
+  en-US: default
+campaign_new.set_skills_custom:
+  en-US: custom

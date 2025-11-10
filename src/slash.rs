@@ -4,7 +4,6 @@ use twilight_model::application::{
     interaction::InteractionContextType,
 };
 use twilight_util::builder::command::{CommandBuilder, StringBuilder};
-use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug)]
 pub struct Slash(pub fn() -> Result<Command>);
@@ -21,10 +20,11 @@ pub fn get_commands() -> Vec<Command> {
 }
 
 pub trait CommandLocalize {
-    fn init_localize<K: Into<String>, V: Into<String> + From<&'static str>>(
-        name: &str,
-        local_names: impl IntoIterator<Item = (K, V)> + Clone,
-        local_descriptions: impl IntoIterator<Item = (K, V)> + Clone,
+    fn init_localize(
+        global_name: impl Into<String>,
+        global_description: impl Into<String>,
+        local_names: impl IntoIterator<Item = (impl Into<String>, impl Into<String>)>,
+        local_descriptions: impl IntoIterator<Item = (impl Into<String>, impl Into<String>)>,
     ) -> Self;
 }
 
@@ -33,46 +33,33 @@ pub trait StringChoiceBool {
 }
 
 impl CommandLocalize for CommandBuilder {
-    fn init_localize<K: Into<String>, V: Into<String> + From<&'static str>>(
-        name: &str,
-        local_names: impl IntoIterator<Item = (K, V)> + Clone,
-        local_descriptions: impl IntoIterator<Item = (K, V)> + Clone,
+    fn init_localize(
+        global_name: impl Into<String>,
+        global_description: impl Into<String>,
+        local_names: impl IntoIterator<Item = (impl Into<String>, impl Into<String>)>,
+        local_descriptions: impl IntoIterator<Item = (impl Into<String>, impl Into<String>)>,
     ) -> Self {
-        Self::new(
-            name.graphemes(false).take(32).collect::<String>(),
-            local_descriptions
-                .clone()
-                .into_iter()
-                .next()
-                .map_or_else(|| "".into(), |v| v.1),
-            CommandType::ChatInput,
-        )
-        .name_localizations(local_names)
-        .description_localizations(local_descriptions)
-        .contexts([
-            InteractionContextType::Guild,
-            InteractionContextType::BotDm,
-            InteractionContextType::PrivateChannel,
-        ])
+        Self::new(global_name, global_description, CommandType::ChatInput)
+            .name_localizations(local_names)
+            .description_localizations(local_descriptions)
+            .contexts([
+                InteractionContextType::Guild,
+                InteractionContextType::BotDm,
+                InteractionContextType::PrivateChannel,
+            ])
     }
 }
 
 impl CommandLocalize for StringBuilder {
-    fn init_localize<K: Into<String>, V: Into<String> + From<&'static str>>(
-        name: &str,
-        local_names: impl IntoIterator<Item = (K, V)> + Clone,
-        local_descriptions: impl IntoIterator<Item = (K, V)> + Clone,
+    fn init_localize(
+        global_name: impl Into<String>,
+        global_description: impl Into<String>,
+        local_names: impl IntoIterator<Item = (impl Into<String>, impl Into<String>)>,
+        local_descriptions: impl IntoIterator<Item = (impl Into<String>, impl Into<String>)>,
     ) -> Self {
-        Self::new(
-            name.graphemes(false).take(32).collect::<String>(),
-            local_descriptions
-                .clone()
-                .into_iter()
-                .next()
-                .map_or_else(|| "".into(), |v| v.1),
-        )
-        .name_localizations(local_names)
-        .description_localizations(local_descriptions)
+        Self::new(global_name, global_description)
+            .name_localizations(local_names)
+            .description_localizations(local_descriptions)
     }
 }
 

@@ -5,6 +5,6 @@ edition = "2024"
 
 [dependencies]
 fate = { path = "../"}
-twilight-http = "0.16"
+twilight-http = "0.17"
 tokio = { version = "1", features = ["full"] }
 anyhow = "1"
