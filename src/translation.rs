@@ -9,19 +9,19 @@ pub fn all_t(key: &str, length: usize) -> Vec<(&str, String)> {
         .collect()
 }
 
-pub fn langs(with_text: bool) -> Vec<(String, &'static str)> {
+pub fn langs(emoji_only: bool) -> Vec<(String, &'static str)> {
     available_locales!()
         .iter()
         .map(|&locale| {
             (
-                if with_text {
+                if emoji_only {
+                    t!("language.flag", locale = locale).e().to_string()
+                } else {
                     format!(
                         "{} {}",
                         t!("language.flag", locale = locale),
                         t!("language.native", locale = locale)
                     )
-                } else {
-                    t!("language.flag", locale = locale).to_string()
                 },
                 locale,
             )
@@ -31,7 +31,7 @@ pub fn langs(with_text: bool) -> Vec<(String, &'static str)> {
 
 pub trait Truncate {
     fn c(&self, length: usize) -> String;
-    fn e(&self) -> Cow<'_, str>;
+    fn e(&self) -> &str;
 }
 
 impl Truncate for Cow<'_, str> {
@@ -39,10 +39,10 @@ impl Truncate for Cow<'_, str> {
         self.graphemes(false).take(length).collect()
     }
 
-    fn e(&self) -> Cow<'_, str> {
+    fn e(&self) -> &str {
         self.graphemes(true)
             .next()
             .filter(|grapheme| emojis::get(grapheme).is_some())
-            .map_or(Cow::Borrowed("‼️"), Cow::Borrowed)
+            .unwrap_or("‼️")
     }
 }
