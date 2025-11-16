@@ -3,7 +3,7 @@ use twilight_model::application::interaction::{
     application_command::{CommandDataOption, CommandOptionValue},
 };
 
-trait InteractionDataHelper {
+pub trait InteractionDataHelper {
     fn get_command_options(&self) -> Vec<&CommandDataOption>;
     fn get_command_v(&self, option_name: &str) -> Option<&CommandOptionValue>;
     fn get_command_v_str(&self, option_name: &str) -> Option<&str>;
