@@ -7,12 +7,12 @@ pub use slash::get_commands;
 
 #[macro_use]
 mod status_code;
-#[macro_use]
-mod translation;
 
 mod handler;
 mod interaction;
+mod interaction_data;
 mod slash;
+mod translation;
 mod validate;
 
 mod campaign_new;
