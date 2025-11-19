@@ -1,3 +1,3 @@
 mod _0_slash;
-mod _1_name;
-mod _2_lang;
+pub mod _1_name;
+pub mod _2_lang;

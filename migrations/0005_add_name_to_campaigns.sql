@@ -1,0 +1,2 @@
+-- Migration number: 0005 	 2025-11-19T15:13:57.526Z
+ALTER TABLE campaigns ADD COLUMN name TEXT NOT NULL;

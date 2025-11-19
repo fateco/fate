@@ -1,4 +1,4 @@
-use futures::future::BoxFuture;
+use futures::future::LocalBoxFuture;
 use twilight_model::application::interaction::Interaction;
 use worker::{Env, Response, Result};
 
@@ -13,7 +13,7 @@ pub struct HandlerIds {
 #[derive(Debug)]
 pub struct Handler(
     pub HandlerIds,
-    pub fn(Interaction, Env) -> BoxFuture<'static, Result<Response>>,
+    pub fn(Interaction, Env) -> LocalBoxFuture<'static, Result<Response>>,
 );
 
 inventory::collect!(Handler);

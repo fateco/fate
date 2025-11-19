@@ -15,6 +15,8 @@ mod slash;
 mod translation;
 mod validate;
 
+mod database;
+
 mod campaign_new;
 
 use worker::{Context, Env, Request, Response, Result, event};
