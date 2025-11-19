@@ -10,14 +10,18 @@ use fate_internal_macro::handler;
 
 #[handler("new-campaign")]
 pub async fn campaign_new(interaction: Interaction, env: Env) -> Result<Response> {
-    let (Some(name), Some(lang)) = (
+    let (Some(user_id), Some(name), Some(lang)) = (
+        &interaction
+            .user
+            .as_ref()
+            .and_then(|user| i64::try_from(user.id.get()).ok()),
         interaction.get_command_v_str(CAMPAIGN_NEW_SET_NAME),
         interaction.get_command_v_str(CAMPAIGN_NEW_SET_LANG),
     ) else {
         return bad_request!();
     };
     let d1 = env.d1("fate_db")?;
-    let a = new_campaign(&d1, name, lang, 1).await?;
+    let a = new_campaign(&d1, name, lang, user_id).await?;
     a.run().await?;
     // Ok(Response::from_json(&InteractionResponse {
     //     kind: InteractionResponseType::Pong,

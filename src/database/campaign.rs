@@ -15,7 +15,7 @@ pub async fn new_campaign(
     db: &D1Database,
     name: &str,
     lang: &str,
-    gm_id: i64,
+    gm_id: &i64,
 ) -> Result<D1PreparedStatement> {
     query!(
         db,
