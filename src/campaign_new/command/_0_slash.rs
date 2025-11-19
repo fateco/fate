@@ -4,7 +4,7 @@ use twilight_util::builder::command::CommandBuilder;
 
 use crate::{
     campaign_new::{
-        command::{_1_name::name, _2_lang::lang, _3_is_defualt_skills::is_defualt_skills},
+        command::{_1_name::name, _2_lang::lang},
         handler::CAMPAIGN_NEW_COMMAND,
     },
     slash::CommandLocalize,
@@ -22,7 +22,6 @@ pub fn campaign_new_slash() -> Result<Command> {
     )
     .option(name())
     .option(lang())
-    .option(is_defualt_skills())
     .validate()?
     .build())
 }
