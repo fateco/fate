@@ -4,3 +4,8 @@ compatibility_date = "2025-11-01"
 
 [build]
 command = "cargo install -q worker-build && worker-build --release"
+
+[[d1_databases]]
+binding = "fate_db"
+database_name = "fate-db"
+database_id = "5ee493f9-3687-4afb-b2e3-c353774419e6"
