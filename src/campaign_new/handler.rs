@@ -3,7 +3,7 @@ use worker::{Env, Response, Result};
 
 use crate::{
     campaign_new::command::_1_name::CAMPAIGN_NEW_SET_NAME,
-    campaign_new::command::_2_lang::CAMPAIGN_NEW_SET_LANG, database::campaign::new_campaign,
+    campaign_new::command::_1_lang::CAMPAIGN_NEW_SET_LANG, database::campaign::new_campaign,
     interaction_data::InteractionDataHelper,
 };
 use fate_internal_macro::handler;

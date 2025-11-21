@@ -3,10 +3,7 @@ use twilight_model::application::command::Command;
 use twilight_util::builder::command::CommandBuilder;
 
 use crate::{
-    campaign_new::{
-        command::{_1_name::name, _2_lang::lang},
-        handler::CAMPAIGN_NEW_COMMAND,
-    },
+    campaign_new::{command::_1_lang::lang, handler::CAMPAIGN_NEW_COMMAND},
     slash::CommandLocalize,
     translation::{Truncate, all_t},
 };
@@ -20,7 +17,6 @@ pub fn campaign_new_slash() -> Result<Command> {
         all_t("campaign_new.command", 32),
         all_t("campaign_new.description", 100),
     )
-    .option(name())
     .option(lang())
     .validate()?
     .build())

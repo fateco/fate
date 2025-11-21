@@ -1,2 +1,0 @@
--- Migration number: 0004 	 2025-11-19T15:05:25.687Z
-ALTER TABLE campaigns ADD COLUMN gm_id INTEGER NOT NULL;
