@@ -6,8 +6,8 @@ use crate::interaction::InteractionId;
 
 #[derive(Debug)]
 pub struct HandlerIds {
-    pub command: Option<&'static str>,
-    pub common: &'static str,
+    pub auto: &'static str,
+    pub custom: Option<&'static str>,
 }
 
 #[derive(Debug)]
@@ -27,8 +27,8 @@ pub fn get_handler(id: &InteractionId) -> Option<&'static Handler> {
 impl PartialEq<InteractionId<'_>> for HandlerIds {
     fn eq(&self, other: &InteractionId) -> bool {
         match other {
-            InteractionId::Comand(id) => self.command.is_some_and(|v| &v == id),
-            InteractionId::Common(id) => &self.common == id,
+            InteractionId::Comand(id) => self.custom.is_some_and(|v| &v == id),
+            InteractionId::Other(id) => &self.auto == id,
         }
     }
 }

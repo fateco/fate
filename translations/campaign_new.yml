@@ -3,10 +3,6 @@ campaign_new.command:
   en-US: campaign-new
 campaign_new.description:
   en-US: ...
-campaign_new.name:
-  en-US: name
-campaign_new.name_description:
-  en-US: ...
 campaign_new.language:
   en-US: language
 campaign_new.language_description:

@@ -1,15 +1,23 @@
-use twilight_model::application::interaction::{
-    Interaction, InteractionData,
-    application_command::{CommandDataOption, CommandOptionValue},
+use twilight_model::{
+    application::interaction::{
+        Interaction, InteractionData,
+        application_command::{CommandDataOption, CommandOptionValue},
+    },
+    id::{Id, marker::UserMarker},
 };
 
 pub trait InteractionDataHelper {
+    fn get_user_id(&self) -> Option<&Id<UserMarker>>;
     fn get_command_options(&self) -> Vec<&CommandDataOption>;
     fn get_command_v(&self, option_name: &str) -> Option<&CommandOptionValue>;
     fn get_command_v_str(&self, option_name: &str) -> Option<&str>;
 }
 
 impl InteractionDataHelper for Interaction {
+    fn get_user_id(&self) -> Option<&Id<UserMarker>> {
+        self.user.as_ref().map(|user| &user.id)
+    }
+
     fn get_command_options(&self) -> Vec<&CommandDataOption> {
         self.data
             .as_ref()

@@ -21,6 +21,7 @@ rust-i18n = "3"
 rand = "0.9"
 getrandom = { version = "0.3", features = ["wasm_js"] }
 bitflags = { version = "2", features = ["serde"] }
+short-uuid = { version = "0.2.0", features = ["serde"] }
 unicode-segmentation = "1.12"
 emojis = "0.8"
 ed25519-dalek = "2"

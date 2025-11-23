@@ -31,14 +31,14 @@ pub async fn get_interaction(
 #[derive(Debug)]
 pub enum InteractionId<'a> {
     Comand(&'a str),
-    Common(&'a str),
+    Other(&'a str),
 }
 
 pub fn interaction_id(interaction: &'_ Interaction) -> Option<InteractionId<'_>> {
     interaction.data.as_ref().and_then(|data| match data {
         InteractionData::ApplicationCommand(data) => Some(InteractionId::Comand(&data.name)),
-        InteractionData::MessageComponent(data) => Some(InteractionId::Common(&data.custom_id)),
-        InteractionData::ModalSubmit(data) => Some(InteractionId::Common(&data.custom_id)),
+        InteractionData::MessageComponent(data) => Some(InteractionId::Other(&data.custom_id)),
+        InteractionData::ModalSubmit(data) => Some(InteractionId::Other(&data.custom_id)),
         _ => None,
     })
 }
