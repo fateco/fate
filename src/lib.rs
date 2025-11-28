@@ -5,16 +5,15 @@ extern crate rust_i18n;
 
 pub use slash::get_commands;
 
-#[macro_use]
-mod status_code;
-
 mod handler;
-mod interaction;
 mod interaction_data;
+mod process;
+mod response;
+mod modal;
 mod slash;
 mod translation;
-mod validate;
 
+mod components;
 mod database;
 
 mod campaign_new;
@@ -23,29 +22,32 @@ use worker::{Context, Env, Request, Response, Result, event};
 
 use crate::{
     handler::get_handler,
-    interaction::{get_interaction, interaction_id, interaction_is_ping},
+    interaction_data::InteractionDataHelper,
+    process::get_interaction,
+    response::{not_found, pong},
 };
 
 i18n!("translations", fallback = "en-US");
 
-///  This is where the Cloudflare Worker starts working on a Discord interaction for the FATE app and sends a reply.
+/// The main entry point for FATE. It handles every request from Discord, figures out what to do, and sends a reply.
 ///
 /// # Errors
 ///
-/// If this function runs into any errors when working with a Worker, an error result will be returned.
+/// If this function runs into any errors when working with a Worker, a worker error will be returned.
 #[event(fetch)]
 pub async fn app(req: Request, env: Env, _ctx: Context) -> Result<Response> {
     let interaction = match get_interaction(req, &env).await {
-        Ok(interaction) => interaction,
-        Err(code) => return code,
+        Ok(i) => i,
+        Err(e) => return e,
     };
 
-    if let Some(pong) = interaction_is_ping(&interaction) {
-        return pong;
-    }
+    let Some(id) = interaction.get_id() else {
+        return pong();
+    };
 
-    match interaction_id(&interaction).and_then(|id| get_handler(&id)) {
-        Some(handler) => (handler.1)(interaction, env).await,
-        None => not_found!(),
-    }
+    let Some(handler) = get_handler(id) else {
+        return not_found();
+    };
+
+    (handler.1)(interaction, env).await
 }

@@ -28,10 +28,6 @@ pub trait CommandLocalize {
     ) -> Self;
 }
 
-// pub trait StringChoiceBool {
-//     fn choice_bool(self) -> Self;
-// }
-
 impl CommandLocalize for CommandBuilder {
     fn init_localize(
         global_name: impl Into<String>,
@@ -62,9 +58,3 @@ impl CommandLocalize for StringBuilder {
             .description_localizations(local_descriptions)
     }
 }
-
-// impl StringChoiceBool for StringBuilder {
-//     fn choice_bool(self) -> Self {
-//         self.choices([(t!("bool.yes"), "true"), (t!("bool.false"), "false")])
-//     }
-// }

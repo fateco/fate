@@ -9,23 +9,26 @@ pub fn all_t(key: &str, length: usize) -> Vec<(&str, String)> {
         .collect()
 }
 
-pub fn langs(emoji_only: bool) -> Vec<(String, &'static str)> {
+pub fn langs() -> Vec<(String, &'static str)> {
     available_locales!()
         .iter()
         .map(|&locale| {
             (
-                if emoji_only {
-                    t!("language.flag", locale = locale).e().to_string()
-                } else {
-                    format!(
-                        "{} {}",
-                        t!("language.flag", locale = locale),
-                        t!("language.native", locale = locale)
-                    )
-                },
+                format!(
+                    "{} {}",
+                    t!("language.flag", locale = locale).e(),
+                    t!("language.native", locale = locale)
+                ),
                 locale,
             )
         })
+        .collect()
+}
+
+pub fn flags() -> Vec<(String, &'static str)> {
+    available_locales!()
+        .iter()
+        .map(|&locale| (t!("language.flag", locale = locale).e().to_string(), locale))
         .collect()
 }
 

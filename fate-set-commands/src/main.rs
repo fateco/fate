@@ -5,14 +5,14 @@ use twilight_http::Client;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    rustls::crypto::aws_lc_rs::default_provider()
-        .install_default()
-        .unwrap();
+    let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
+
     let client = Client::new(
         env::args()
             .nth(1)
             .ok_or_else(|| anyhow!("please pass token arg"))?,
     );
+
     client
         .interaction(client.current_user_application().await?.model().await?.id)
         .set_global_commands(&get_commands())

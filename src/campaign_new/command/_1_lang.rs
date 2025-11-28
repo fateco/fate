@@ -15,5 +15,5 @@ pub fn lang() -> StringBuilder {
         all_t("campaign_new.language_description", 100),
     )
     .required(true)
-    .choices(langs(false))
+    .choices(langs())
 }

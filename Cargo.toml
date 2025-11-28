@@ -13,7 +13,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 fate-internal-macro = { path = "./fate-internal-macro" }
-worker = { version = "0.6", features = ["d1"] }
+worker = { version = "0.7", features = ["d1"] }
 twilight-model = "0.17"
 twilight-util = { version = "0.17", features = ["builder"] }
 inventory = "0.3"
