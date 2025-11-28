@@ -1,6 +1,6 @@
 name = "fate"
 main = "build/index.js"
-compatibility_date = "2025-11-24"
+compatibility_date = "2025-11-28"
 
 [build]
 command = "cargo install -q worker-build && worker-build --release"
