@@ -9,6 +9,7 @@ use twilight_model::{
 
 pub trait InteractionDataHelper {
     fn get_id(&self) -> Option<&str>;
+    fn get_user(&self) -> Option<(&Id<UserMarker>, &str)>;
     fn get_user_id(&self) -> Option<&Id<UserMarker>>;
     fn get_username(&self) -> Option<&str>;
     fn get_command_options(&self) -> Vec<&CommandDataOption>;
@@ -28,6 +29,11 @@ impl InteractionDataHelper for Interaction {
                 _ => None,
             })
             .map(String::as_str)
+    }
+
+    fn get_user(&self) -> Option<(&Id<UserMarker>, &str)> {
+        self.get_user_id()
+            .and_then(|id| self.get_username().map(|name| (id, name)))
     }
 
     fn get_user_id(&self) -> Option<&Id<UserMarker>> {

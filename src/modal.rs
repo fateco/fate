@@ -38,7 +38,7 @@ impl Modal {
     pub fn row(
         mut self,
         label: impl Into<String>,
-        description: impl Into<String>,
+        description: Option<impl Into<String>>,
         component: Component,
     ) -> Self {
         if matches!(
@@ -54,13 +54,16 @@ impl Modal {
         ) {
             let mut label = label.into();
             label.truncate(45);
-            let mut description = description.into();
-            description.truncate(100);
-            self.components.push(Component::Label(
-                LabelBuilder::new(label, component)
-                    .description(description)
-                    .build(),
-            ));
+
+            let mut builder = LabelBuilder::new(label, component);
+
+            if let Some(description) = description {
+                let mut description = description.into();
+                description.truncate(100);
+                builder = builder.description(description);
+            }
+
+            self.components.push(Component::Label(builder.build()));
         }
         self
     }
