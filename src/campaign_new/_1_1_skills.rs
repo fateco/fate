@@ -11,10 +11,10 @@ pub mod response {
             .row(
                 "Skills",
                 Some("Skills"),
-                TextInputBuilder::new("skills")
+                TextInputBuilder::new("id")
                     .paragraph()
-                    .min_length(1)
-                    .max_length(100)
+                    .min_length(55)
+                    .max_length(3449)
                     .placeholder("placeholder")
                     .value("value")
                     .build()
@@ -25,22 +25,27 @@ pub mod response {
 }
 
 mod handler {
-    use twilight_model::application::interaction::Interaction;
+    use twilight_model::{
+        application::interaction::Interaction,
+        http::interaction::{
+            InteractionResponse, InteractionResponseData, InteractionResponseType,
+        },
+    };
     use worker::{Env, Response, Result};
 
     use crate::{
-        campaign_new::_1_1_skills::response::modal_skills, interaction_data::InteractionDataHelper,
-        response::bad_request,
+        interaction_data::InteractionDataHelper,
+        modal::input::TextInputBuilder,
+        response::{bad_request, response},
     };
     use fate_internal_macro::handler;
 
     #[handler]
     pub async fn skills(interaction: Interaction, env: Env) -> Result<Response> {
-        // let Some((user_id, username)) = interaction.get_user() else {
-        //     return bad_request();
-        // };
+        let Some((user_id, username)) = interaction.get_user() else {
+            return bad_request();
+        };
 
-        // todo!()
-        modal_skills()
+        todo!()
     }
 }

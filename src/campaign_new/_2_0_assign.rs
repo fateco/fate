@@ -8,7 +8,7 @@ mod handler {
     use fate_internal_macro::handler;
 
     #[handler]
-    pub async fn review(interaction: Interaction, env: Env) -> Result<Response> {
+    pub async fn assign(interaction: Interaction, env: Env) -> Result<Response> {
         let Some((user_id, username)) = interaction.get_user() else {
             return bad_request();
         };

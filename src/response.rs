@@ -1,4 +1,6 @@
-use twilight_model::http::interaction::{InteractionResponse, InteractionResponseType};
+use twilight_model::http::interaction::{
+    InteractionResponse, InteractionResponseData, InteractionResponseType,
+};
 use worker::{Response, Result};
 
 pub fn response(interaction_response: &InteractionResponse) -> Result<Response> {
@@ -10,6 +12,42 @@ pub fn pong() -> Result<Response> {
         kind: InteractionResponseType::Pong,
         data: None,
     })
+}
+
+pub mod msg {
+    use twilight_model::{
+        channel::message::{Component, MessageFlags},
+        http::interaction::{
+            InteractionResponse, InteractionResponseData, InteractionResponseType,
+        },
+    };
+    use worker::{Response, Result};
+
+    use crate::response::response;
+
+    fn msg(
+        custom_id: impl Into<String>,
+        components: Vec<Component>,
+        flags: MessageFlags,
+    ) -> Result<Response> {
+        response(&InteractionResponse {
+            kind: InteractionResponseType::ChannelMessageWithSource,
+            data: Some(InteractionResponseData {
+                custom_id: Some(custom_id.into()),
+                components: Some(components),
+                flags: Some(MessageFlags::IS_COMPONENTS_V2 | flags),
+                ..Default::default()
+            }),
+        })
+    }
+
+    pub fn ephemeral(components: Vec<Component>, custom_id: impl Into<String>) -> Result<Response> {
+        msg(custom_id, components, MessageFlags::EPHEMERAL)
+    }
+
+    pub fn pub_msg(components: Vec<Component>, custom_id: impl Into<String>) -> Result<Response> {
+        msg(custom_id, components, MessageFlags::empty())
+    }
 }
 
 macro_rules! define_error_macro {

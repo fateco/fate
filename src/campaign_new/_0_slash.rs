@@ -53,6 +53,25 @@ mod handler {
             return bad_request();
         };
 
+        // pub_msg(
+        //     "",
+        //     vec![
+        //         ActionRowBuilder::new()
+        //             .component(
+        //                 SelectMenuBuilder::new("custom_id", SelectMenuType::Text)
+        //                     .option(
+        //                         SelectMenuOptionBuilder::new("dsds", "dsdddd")
+        //                             .emoji(EmojiReactionType::Unicode {
+        //                                 name: "👩🏾‍❤️‍💋‍👨🏻".into()
+        //                             })
+        //                             .build(),
+        //                     )
+        //                     .build(),
+        //             )
+        //             .build()
+        //             .into(),
+        //     ],
+        // )
         modal_skills()
     }
 }

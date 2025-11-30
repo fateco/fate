@@ -1,0 +1,39 @@
+_version: 2
+default_skills.academics:
+  en-US: Academics
+default_skills.athletics:
+  en-US: Athletics
+default_skills.burglary:
+  en-US: Burglary
+default_skills.contacts:
+  en-US: Contacts
+default_skills.crafts:
+  en-US: Crafts
+default_skills.deceive:
+  en-US: Deceive
+default_skills.drive:
+  en-US: Drive
+default_skills.empathy:
+  en-US: Empathy
+default_skills.fight:
+  en-US: Fight
+default_skills.investigate:
+  en-US: Investigate
+default_skills.lore:
+  en-US: Lore
+default_skills.notice:
+  en-US: Notice
+default_skills.physique:
+  en-US: Physique
+default_skills.provoke:
+  en-US: Provoke
+default_skills.rapport:
+  en-US: Rapport
+default_skills.resources:
+  en-US: Resources
+default_skills.shoot:
+  en-US: Shoot
+default_skills.stealth:
+  en-US: Stealth
+default_skills.will:
+  en-US: Will

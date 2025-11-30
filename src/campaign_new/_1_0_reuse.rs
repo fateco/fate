@@ -1,4 +1,10 @@
-mod response {}
+mod response {
+    use worker::{Response, Result};
+
+    pub fn msg_reuse() -> Result<Response> {
+        todo!()
+    }
+}
 
 mod handler {
     use twilight_model::application::interaction::Interaction;
