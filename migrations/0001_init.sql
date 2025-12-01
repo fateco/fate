@@ -4,25 +4,19 @@
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
     discord_user_id TEXT NOT NULL UNIQUE,
-    discord_username_cache TEXT NOT NULL
-) STRICT;
-
-CREATE TABLE draft_campaigns (
-    id INTEGER PRIMARY KEY,
-    user_id INTEGER NOT NULL UNIQUE REFERENCES users (id) ON DELETE CASCADE,
-    lang TEXT NOT NULL DEFAULT 'en-US',
-    updated_at INTEGER NOT NULL DEFAULT (unixepoch())
+    discord_username_cache TEXT NOT NULL,
+    last_draft_lang TEXT NOT NULL DEFAULT 'en-US'
 ) STRICT;
 
 CREATE TABLE draft_skills (
     id INTEGER PRIMARY KEY,
-    draft_campaign_id INTEGER NOT NULL REFERENCES draft_campaigns (id) ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     name TEXT NOT NULL,
     emoji TEXT,
     description TEXT,
     flags INTEGER NOT NULL DEFAULT 0
 ) STRICT;
-CREATE INDEX idx_draft_skills_draft_campaign_id ON draft_skills(draft_campaign_id);
+CREATE INDEX idx_draft_skills_user_id ON draft_skills(user_id);
 
 CREATE TABLE campaigns (
     id INTEGER PRIMARY KEY,
