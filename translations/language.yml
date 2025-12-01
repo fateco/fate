@@ -1,5 +1,7 @@
 _version: 2
 language.flag:
   en-US: 🇺🇸
+  th: 🇹🇭
 language.native:
   en-US: English, US
+  th: ไทย

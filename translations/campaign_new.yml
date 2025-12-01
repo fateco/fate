@@ -1,9 +1,13 @@
 _version: 2
 campaign_new.command:
   en-US: campaign-new
+  th: สร้างแคมเปญ
 campaign_new.description:
   en-US: ...
+  th: ...
 campaign_new.language:
   en-US: language
+  th: ภาษา
 campaign_new.language_description:
   en-US: ...
+  th: ...

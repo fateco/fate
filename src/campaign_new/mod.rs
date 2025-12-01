@@ -1,7 +1,6 @@
 mod _0_slash;
-mod _1_0_reuse;
-mod _1_1_skills;
-mod _2_0_assign;
-mod _2_1_physical;
-mod _2_2_mental;
-mod _3_name;
+mod _1_skill;
+mod _2_next;
+mod _3_physical;
+mod _4_next;
+mod _5_mental;

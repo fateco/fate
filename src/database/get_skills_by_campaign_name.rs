@@ -1,7 +1,6 @@
+use crate::database::model::skill::Skill;
 use twilight_model::id::{Id, marker::UserMarker};
 use worker::{D1Database, Result, query};
-
-use crate::database::model::skill::Skill;
 
 pub async fn db_get_skills_by_campaign_name(
     db: &D1Database,

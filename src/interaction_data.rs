@@ -9,9 +9,10 @@ use twilight_model::{
 
 pub trait InteractionDataHelper {
     fn get_id(&self) -> Option<&str>;
-    fn get_user(&self) -> Option<(&Id<UserMarker>, &str)>;
+    fn get_user(&self) -> Option<(&Id<UserMarker>, &str, &str)>;
     fn get_user_id(&self) -> Option<&Id<UserMarker>>;
     fn get_username(&self) -> Option<&str>;
+    fn get_locale(&self) -> &str;
     fn get_command_options(&self) -> Vec<&CommandDataOption>;
     fn get_command_v(&self, option_name: &str) -> Option<&CommandOptionValue>;
     fn get_command_v_str(&self, option_name: &str) -> Option<&str>;
@@ -31,9 +32,10 @@ impl InteractionDataHelper for Interaction {
             .map(String::as_str)
     }
 
-    fn get_user(&self) -> Option<(&Id<UserMarker>, &str)> {
+    fn get_user(&self) -> Option<(&Id<UserMarker>, &str, &str)> {
         self.get_user_id()
             .and_then(|id| self.get_username().map(|name| (id, name)))
+            .map(|(id, name)| (id, name, self.get_locale()))
     }
 
     fn get_user_id(&self) -> Option<&Id<UserMarker>> {
@@ -42,6 +44,10 @@ impl InteractionDataHelper for Interaction {
 
     fn get_username(&self) -> Option<&str> {
         self.user.as_ref().map(|user| user.name.as_str())
+    }
+
+    fn get_locale(&self) -> &str {
+        self.locale.as_deref().unwrap_or("en-US")
     }
 
     fn get_command_options(&self) -> Vec<&CommandDataOption> {

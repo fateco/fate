@@ -1,11 +1,10 @@
-use ed25519_dalek::Verifier;
-use twilight_model::application::interaction::Interaction;
-use worker::{Env, Method, Request, Response};
-
 use crate::{
     process::validate::{msg, public_key, signature},
     response::{bad_request, internal_error, method_not_allowed, unauthorized},
 };
+use ed25519_dalek::Verifier;
+use twilight_model::application::interaction::Interaction;
+use worker::{Env, Method, Request, Response};
 
 pub async fn get_interaction(
     mut req: Request,

@@ -1,11 +1,10 @@
+use crate::response::{internal_error, response};
 use twilight_model::{
     channel::message::{Component, component::ComponentType},
     http::interaction::{InteractionResponse, InteractionResponseData, InteractionResponseType},
 };
 use twilight_util::builder::message::LabelBuilder;
 use worker::{Response, Result};
-
-use crate::response::{internal_error, response};
 
 pub struct Modal {
     title: String,

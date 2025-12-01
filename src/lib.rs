@@ -7,9 +7,9 @@ pub use slash::get_commands;
 
 mod handler;
 mod interaction_data;
+mod modal;
 mod process;
 mod response;
-mod modal;
 mod slash;
 mod translation;
 
@@ -18,14 +18,13 @@ mod database;
 
 mod campaign_new;
 
-use worker::{Context, Env, Request, Response, Result, event};
-
 use crate::{
     handler::get_handler,
     interaction_data::InteractionDataHelper,
     process::get_interaction,
     response::{not_found, pong},
 };
+use worker::{Context, Env, Request, Response, Result, event};
 
 i18n!("translations", fallback = "en-US");
 

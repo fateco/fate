@@ -1,22 +1,21 @@
 pub mod response {
-    use worker::{Response, Result};
-
     use crate::{
-        campaign_new::_1_1_skills::handler::SKILLS,
+        campaign_new::_1_skill::handler::SKILLS,
         modal::{Modal, input::TextInputBuilder},
     };
+    use worker::{Response, Result};
 
-    pub fn modal_skills() -> Result<Response> {
+    pub fn modal_skill(lang: &str, value: &str) -> Result<Response> {
         Modal::new("Skills")
             .row(
                 "Skills",
                 Some("Skills"),
                 TextInputBuilder::new("id")
                     .paragraph()
-                    .min_length(55)
-                    .max_length(3449)
+                    .min_length(37)
+                    .max_length(4000) //524)
                     .placeholder("placeholder")
-                    .value("value")
+                    .value(value)
                     .build()
                     .into(),
             )
@@ -42,7 +41,7 @@ mod handler {
 
     #[handler]
     pub async fn skills(interaction: Interaction, env: Env) -> Result<Response> {
-        let Some((user_id, username)) = interaction.get_user() else {
+        let Some((user_id, username, locale)) = interaction.get_user() else {
             return bad_request();
         };
 
